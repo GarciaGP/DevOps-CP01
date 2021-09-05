@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Cadastro de Cliente</h1>
 
 <form asp-action="cadastrar" method="post">
     <div class="form-group">
@@ -17,7 +17,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Cpf"></label>
-        <input asp-for="Cpf" class="form-control" />
+        <input asp-for="Cpf" class="form-control" maxlength="12"/>
     </div>
     <div class="form-group">
         <label asp-for="Endereco"></label>

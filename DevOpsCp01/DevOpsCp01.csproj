@@ -9,6 +9,28 @@
     <Compile Remove="Migrations\20210905002833_initial.Designer.cs" />
     <Compile Remove="Migrations\20210905003448_Initial.cs" />
     <Compile Remove="Migrations\20210905003448_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20210905004348_Initial.cs" />
+    <Compile Remove="Migrations\20210905004348_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20210905035736_NovaMigration.cs" />
+    <Compile Remove="Migrations\20210905035736_NovaMigration.Designer.cs" />
+    <Compile Remove="Migrations\20210905040010_NovaMigration.cs" />
+    <Compile Remove="Migrations\20210905040010_NovaMigration.Designer.cs" />
+    <Compile Remove="Migrations\20210905040057_NovaMigration.cs" />
+    <Compile Remove="Migrations\20210905040057_NovaMigration.Designer.cs" />
+    <Compile Remove="Migrations\20210905040345_NovaMigration.cs" />
+    <Compile Remove="Migrations\20210905040345_NovaMigration.Designer.cs" />
+    <Compile Remove="Migrations\20210905040919_NovaMigration.cs" />
+    <Compile Remove="Migrations\20210905040919_NovaMigration.Designer.cs" />
+    <Compile Remove="Migrations\20210905042113_NovaMigration.cs" />
+    <Compile Remove="Migrations\20210905042113_NovaMigration.Designer.cs" />
+    <Compile Remove="Migrations\20210905042413_Initial.cs" />
+    <Compile Remove="Migrations\20210905042413_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20210905071717_FK.cs" />
+    <Compile Remove="Migrations\20210905071717_FK.Designer.cs" />
+    <Compile Remove="Migrations\20210905072555_Constraints.cs" />
+    <Compile Remove="Migrations\20210905072555_Constraints.Designer.cs" />
+    <Compile Remove="Migrations\20210905073910_Constraints2.cs" />
+    <Compile Remove="Migrations\20210905073910_Constraints2.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

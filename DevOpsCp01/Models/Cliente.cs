@@ -16,14 +16,22 @@ namespace DevOpsCp01.Models
         public int Id { get; set; }
 
         [Column("nm_nome")]
+        [MaxLength(180)]
+        [Required]
         public string Nome { get; set; }
 
+        [Required]
         [Column("nr_cpf")]
-        public int Cpf { get; set; }
+        public long Cpf { get; set; }
 
+        [Required]
+        [MaxLength(300)]
         [Column("nm_endereco")]
         public string Endereco { get; set; }
 
+        [Required]
+        [MaxLength(100)]
+        [EmailAddress]
         [Column("nm_email")]
         public string Email { get; set; }
     }

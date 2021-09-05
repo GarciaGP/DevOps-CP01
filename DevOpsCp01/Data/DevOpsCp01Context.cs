@@ -28,6 +28,9 @@ namespace DevOpsCp01.Data
             {
                 entity.HasKey(key => key.Id).HasName("id_cliente");
             });
+
+            modelbuilder.Entity<Cartao>();
+
         }
     }
 }

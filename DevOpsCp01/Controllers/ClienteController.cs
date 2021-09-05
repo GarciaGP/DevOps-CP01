@@ -33,15 +33,20 @@ namespace DevOpsCp01.Controllers
 
         public IActionResult Cadastrar(Cliente cliente)
         {
-            try
-            {
 
-            _context.Add(cliente);
-            _context.Clientes.Add(cliente);
-            _context.SaveChanges();
-            } catch(Exception e)
+            if (ModelState.IsValid)
             {
-                Console.WriteLine(e);
+                try
+                {
+
+                    _context.Add(cliente);
+                    _context.Clientes.Add(cliente);
+                    _context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
             return RedirectToAction("Index");
         }
