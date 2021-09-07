@@ -6,6 +6,13 @@
 
 <h1>Cadastro de Cliente</h1>
 
+@if (TempData["mensagem"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["mensagem"];
+    </div>
+}
+
 <form asp-action="cadastrar" method="post">
     <div class="form-group">
         <label asp-for="Nome"></label>
@@ -17,7 +24,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Cpf"></label>
-        <input asp-for="Cpf" class="form-control" maxlength="12"/>
+        <input asp-for="Cpf" class="form-control" maxlength="11" pattern="([0-9]{11})" type="text" />
     </div>
     <div class="form-group">
         <label asp-for="Endereco"></label>

@@ -31,6 +31,7 @@ namespace DevOpsCp01.Controllers
             return View(cliente);
         }
 
+        [HttpPost]
         public IActionResult Cadastrar(Cliente cliente)
         {
 
@@ -45,9 +46,10 @@ namespace DevOpsCp01.Controllers
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    TempData["mensagem"] = "Ops! Alguma coisa deu errado.";
                 }
             }
+            TempData["mensagem"] = "Novo cliente cadastrado!";
             return RedirectToAction("Index");
         }
 
