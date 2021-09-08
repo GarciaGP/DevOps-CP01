@@ -14,17 +14,24 @@
 }
 
 @{
-    var edicao = false;
-    if (ViewBag.edicao != null && ViewBag.edicao)
+    bool edicao;
+    string botao;
+    if (ViewBag.edicao == null)
+    {
+        edicao = false;
+         botao = "Cadastrar";
+    }
+    else
     {
         edicao = ViewBag.edicao;
+        botao = "Editar";
     }
 }
 
-<form>
+<form asp-action="cadastrar" method="post">
     <div class="form-group">
         <label asp-for="Numero"></label>
-        <input asp-for="Numero" class="form-control" maxlength="16" disabled="@edicao" type="text" />
+        <input asp-for="Numero" class="form-control" pattern="([0-9]{16})" maxlength="16" disabled="@edicao" type="text" />
     </div>
     <div class="form-group">
         <label asp-for="Descricao"></label>
@@ -44,13 +51,6 @@
             <option>Selecione</option>
         </select>
     </div>
-    @if (edicao != null && edicao)
-    {
-        <input type="submit" value="Editar" class="btn btn-outline-primary" action="Editar" formmethod="put" formaction="editar" />
-    }
-    else
-    {
-        <input type="submit" value="Cadastrar" class="btn btn-outline-primary" action="cadastrar" formmethod="post" formaction="cadastrar"/>
-    }
+    <input type="submit" value="@botao" class="btn btn-outline-primary" />
 </form>
 

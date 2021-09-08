@@ -6,6 +6,7 @@ using DevOpsCp01.Data;
 using DevOpsCp01.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace DevOpsCp01.Controllers
 {
@@ -13,6 +14,7 @@ namespace DevOpsCp01.Controllers
     {
         private readonly DevOpsCp01Context _context;
         private IList<Cliente> clientes = new List<Cliente>();
+        private bool modoEdicao = false;
 
         public CartaoController(DevOpsCp01Context context)
         {
@@ -22,37 +24,52 @@ namespace DevOpsCp01.Controllers
         public IActionResult IndexEdicao(int id)
         {
             var cartao = _context.Cartoes.Find(id);
-            CarregarClientes();
+            TempData["cartao"] = id;
             return RedirectToAction("Index", cartao);
         }
 
         public IActionResult Index(Cartao cartao)
         {
-            if(cartao.Numero != 0 || cartao.Id != default(int))
+            if (cartao.Id != default)
+            {
+                modoEdicao = true;
                 ViewBag.edicao = true;
+            }
 
             CarregarClientes();
             return View(cartao);
         }
 
-        public IActionResult Cadastrar(Cartao cartao)
+        [HttpPost]
+        public async Task<ActionResult> Cadastrar(Cartao cartao)
         {
-            if(ViewBag.edicao == true)
-            {
-                return RedirectToAction("Editar", cartao);
-            }
-               
+
+            var retorno = "";
             try
             {
-                _context.Cartoes.Add(cartao);
-                _context.SaveChanges();
+                if (TempData["cartao"] != null)
+                {
+                    var valor = cartao.Limite;
+                    cartao = await _context.Cartoes.FindAsync((int)TempData["cartao"]);
+                    cartao.Limite = valor;
+                    _context.Cartoes.Update(cartao);
+                    TempData["mensagem"] = "Limite do cartão atualizado!";
+                    retorno = "Consultar";
+                }
+                else
+                {
+                    _context.Cartoes.Add(cartao);
+                    TempData["mensagem"] = "Contrato de cartão cadastrado!";
+                    retorno = "Index";
+                }
+
+                await _context.SaveChangesAsync();
             }
             catch (Exception e)
             {
                 TempData["mensagem"] = "Ops! Alguma coisa deu errado.";
             }
-            TempData["mensagem"] = "Contrato de cartão cadastrado!";
-            return RedirectToAction("Index");
+            return RedirectToAction(retorno);
         }
 
         private void CarregarClientes()
@@ -65,7 +82,7 @@ namespace DevOpsCp01.Controllers
         public IActionResult Consultar()
         {
             List<Cartao> cartoes = _context.Cartoes.ToList();
-             
+
             foreach (Cartao c in cartoes)
             {
                 c.Cliente = _context.Clientes.FirstOrDefault(x => x.Id == c.IdCliente);
@@ -75,26 +92,8 @@ namespace DevOpsCp01.Controllers
             return View(cartoes);
         }
 
-        [HttpPut]
-        public IActionResult Editar(Cartao cartao)
-        {
-            try
-            {
-                _context.Cartoes.Update(cartao);
-                 _context.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                TempData["mensagem"] = "Ops! Alguma coisa deu errado.";
-            }
-
-            TempData["mensagem"] = "Cartão editado!";
-            return View("Index", cartao);
-        }
-
-        [HttpDelete]
         public IActionResult Excluir(int id)
-        { 
+        {
             try
             {
                 var cartao = _context.Cartoes.Find(id);
