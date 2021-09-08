@@ -17,11 +17,13 @@ namespace DevOpsCp01.Models
 
         [Required]
         [Column("nr_cartao")]
+        [Display(Name = "Número do cartão")]
         public long Numero { get; set; }
 
         [Required]
         [MaxLength(50)]
         [Column("ds_cartao")]
+        [Display(Name = "Descrição")]
         public string Descricao { get; set; }
 
         [Required]
@@ -38,6 +40,7 @@ namespace DevOpsCp01.Models
         [Required]
         [ForeignKey("Cliente")]
         [Column("id_cliente")]
+        [Display(Name = "Cliente")]
         public int IdCliente { get; set; }
 
     }

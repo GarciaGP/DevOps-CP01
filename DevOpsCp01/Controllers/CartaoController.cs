@@ -19,15 +19,29 @@ namespace DevOpsCp01.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult IndexEdicao(int id)
         {
+            var cartao = _context.Cartoes.Find(id);
             CarregarClientes();
-            return View();
+            return RedirectToAction("Index", cartao);
+        }
+
+        public IActionResult Index(Cartao cartao)
+        {
+            if(cartao.Numero != 0 || cartao.Id != default(int))
+                ViewBag.edicao = true;
+
+            CarregarClientes();
+            return View(cartao);
         }
 
         public IActionResult Cadastrar(Cartao cartao)
         {
-            // cartao.IdCliente = clientes.First(x => x.)
+            if(ViewBag.edicao == true)
+            {
+                return RedirectToAction("Editar", cartao);
+            }
+               
             try
             {
                 _context.Cartoes.Add(cartao);
@@ -60,6 +74,43 @@ namespace DevOpsCp01.Controllers
 
             return View(cartoes);
         }
+
+        [HttpPut]
+        public IActionResult Editar(Cartao cartao)
+        {
+            try
+            {
+                _context.Cartoes.Update(cartao);
+                 _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                TempData["mensagem"] = "Ops! Alguma coisa deu errado.";
+            }
+
+            TempData["mensagem"] = "Cartão editado!";
+            return View("Index", cartao);
+        }
+
+        [HttpDelete]
+        public IActionResult Excluir(int id)
+        { 
+            try
+            {
+                var cartao = _context.Cartoes.Find(id);
+                _context.Cartoes.Remove(cartao);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                TempData["mensagem"] = "Ops! Alguma coisa deu errado.";
+            }
+
+            TempData["mensagem"] = "Cartão excluído!";
+            return RedirectToAction("Consultar");
+        }
+
+
 
     }
 }

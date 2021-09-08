@@ -6,6 +6,13 @@
 
 <h1>Listagem de clientes x cartões</h1>
 
+@if (TempData["mensagem"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["mensagem"];
+    </div>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -26,6 +33,10 @@
                         <td>@cartao.Cliente.Nome</td>
                         <td>@cartao.Limite</td>
                         <td>@cartao.Descricao</td>
+                        <td>
+                            <a asp-action="indexedicao" asp-route-id="@cartao.Id" class="btn btn-sm btn-outline-primary">Editar</a>
+                            <a asp-action="excluir" asp-route-id="@cartao.Id" class="btn btn-sm btn-outline-danger">Remover</a>
+                        </td>
                     </tr>
                 }
             }
